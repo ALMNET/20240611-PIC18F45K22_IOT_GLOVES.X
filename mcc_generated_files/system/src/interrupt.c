@@ -49,12 +49,6 @@ void  INTERRUPT_Initialize (void)
     // TMRI - high priority
     IPR1bits.TMR2IP = 1;
 
-    // BCLI - high priority
-    IPR2bits.BCL1IP = 1;
-
-    // SSPI - high priority
-    IPR1bits.SSP1IP = 1;
-
 
 
     // Clear the interrupt flag
@@ -96,14 +90,6 @@ void __interrupt() INTERRUPT_InterruptManagerHigh (void)
     if(PIE1bits.TMR2IE == 1 && PIR1bits.TMR2IF == 1)
     {
         TMR2_ISR();
-    }
-    else if(PIE2bits.BCL1IE == 1 && PIR2bits.BCL1IF == 1)
-    {
-        I2C1_ERROR_ISR();
-    }
-    else if(PIE1bits.SSP1IE == 1 && PIR1bits.SSP1IF == 1)
-    {
-        I2C1_ISR();
     }
     else
     {

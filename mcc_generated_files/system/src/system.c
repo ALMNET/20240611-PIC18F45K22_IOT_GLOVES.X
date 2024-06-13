@@ -43,7 +43,7 @@ void SYSTEM_Initialize(void)
     ADC_Initialize();
     CCP5_Initialize();
     EUSART1_Initialize();
-    I2C1_Initialize();
+    // I2C1_Initialize();
     TMR2_Initialize();
     INTERRUPT_Initialize();
 }

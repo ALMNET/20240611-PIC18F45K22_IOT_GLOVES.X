@@ -35,6 +35,8 @@
           <itemPath>mcc_generated_files/uart/eusart1.h</itemPath>
         </logicalFolder>
       </logicalFolder>
+      <itemPath>configuration.h</itemPath>
+      <itemPath>API_I2C.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -88,8 +90,12 @@
         </logicalFolder>
       </logicalFolder>
       <itemPath>main.c</itemPath>
+      <itemPath>API_I2C.c</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">

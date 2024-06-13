@@ -57,8 +57,6 @@ static bool I2C1_IsNack(void);
 static bool I2C1_IsData(void);
 static bool I2C1_IsAddr(void);
 static bool I2C1_IsRxBufFull(void);
-static inline void I2C1_InterruptsEnable(void);
-static inline void I2C1_InterruptsDisable(void);
 static inline void I2C1_InterruptClear(void);
 static inline void I2C1_ErrorInterruptClear(void);
 static inline void I2C1_StatusFlagsClear(void);
@@ -86,7 +84,7 @@ const i2c_host_interface_t I2C1_Host = {
     .ErrorGet = I2C1_ErrorGet,
     .IsBusy = I2C1_IsBusy,
     .CallbackRegister = I2C1_CallbackRegister,
-    .Tasks = NULL
+    .Tasks = I2C1_Tasks
 };
 
 /*
@@ -113,8 +111,8 @@ const i2c1eventHandler i2c1_eventTable[] = {
  */
 void I2C1_Initialize(void)
 {
-    /* CKE disabled; SMP Standard Speed;  */
-    SSP1STAT = 0x80;
+    /* CKE enabled; SMP High Speed;  */
+    SSP1STAT = 0x40;
     /* SSPM FOSC/4_SSPxADD_I2C; CKP disabled; SSPEN disabled; SSPOV no_overflow; WCOL no_collision;  */
     SSP1CON1 = 0x8;
     /* SEN disabled; RSEN disabled; PEN disabled; RCEN disabled; ACKEN disabled; ACKDT acknowledge; GCEN disabled;  */
@@ -123,7 +121,6 @@ void I2C1_Initialize(void)
     SSP1CON3 = 0x0;
     /* SSPADD 19;  */
     SSP1ADD = 0x13;
-    I2C1_InterruptsEnable();
     I2C1_CallbackRegister(I2C1_DefaultCallback);
     SSP1CON1bits.SSPEN = 1;
 }
@@ -135,7 +132,6 @@ void I2C1_Deinitialize(void)
     SSP1CON2 = 0x00;
     SSP1CON3 = 0x00;
     SSP1ADD = 0x00;
-    I2C1_InterruptsDisable();
     I2C1_CallbackRegister(I2C1_DefaultCallback);
 }
 
@@ -216,14 +212,23 @@ void I2C1_CallbackRegister(void (*callbackHandler)(void))
     }
 }
 
-void I2C1_ISR()
+void I2C1_Tasks(void)
 {
-    I2C1_EventHandler();
-}
-
-void I2C1_ERROR_ISR()
-{
-    I2C1_ErrorEventHandler();
+    if (PIR2bits.BCL1IF)
+    {
+        I2C1_ErrorEventHandler();
+    }
+    if (PIR1bits.SSP1IF)
+    {
+        if (PIR2bits.BCL1IF)
+        {
+            I2C1_ErrorEventHandler();
+        }
+        else
+        {
+            I2C1_EventHandler();
+        }
+    }
 }
 
 /*
@@ -462,18 +467,6 @@ static bool I2C1_IsAddr(void)
 static bool I2C1_IsRxBufFull(void)
 {
     return SSP1STATbits.BF;
-}
-
-static inline void I2C1_InterruptsEnable(void)
-{
-    PIE1bits.SSP1IE = 1;
-    PIE2bits.BCL1IE = 1;
-}
-
-static inline void I2C1_InterruptsDisable(void)
-{
-    PIE1bits.SSP1IE = 0;
-    PIE2bits.BCL1IE = 0;
 }
 
 static inline void I2C1_InterruptClear(void)
