@@ -14,6 +14,7 @@
 
 #include <xc.h>
 #include <stdint.h>
+#include <stdio.h>
 
 // #define CONFIG_DATA_12BIT_RESOLUTION 0x60
 #define I2C_RW_BIT 0x01
@@ -36,15 +37,13 @@ static void I2C1_close(void);
 // to be triggered:
 static void I2C1_startCondition(void);
 
+static void i2c_restart();
+
 // The I2C1_stopCondition function sends the Stop condition and waits for the SSP1IF flag to be triggered:
 static void I2C1_stopCondition(void);
 
 // The I2C1_sendData function loads in SSP1BUF the argument value and waits for the SSP1IF flag to be triggered:
 static void I2C1_sendData(uint8_t byte);
-
-// The I2C1_setReceiveMode function sets the receive enable bit in SSP1CON2, which starts the clock signal so
-// that the client can transmit data:
-static void I2C1_setReceiveMode(void);
 
 // The I2C1_readData function loads the value from the SSP1BUF into and variable and waits for the SSP1IF flag to
 // be triggered:
@@ -60,6 +59,15 @@ static void I2C1_sendAcknowledge(void);
 // The I2C1_sendNotAcknowledge function clears the acknowledge bit and sends the NACK to the client device:
 static void I2C1_sendNotAcknowledge(void);
 
+// The I2C1_setReceiveMode function sets the receive enable bit in SSP1CON2, which starts the clock signal so
+// that the client can transmit data:
+static void I2C1_setReceiveMode(void);
+
+
+// The I2C1_readData function loads the value from the SSP1BUF into and variable and waits for the SSP1IF flag to
+// be triggered:
+static uint8_t I2C1_readData(void);
+
 
 // The I2C1_write1ByteRegister function executes all the steps to write one byte to the client:
 void I2C1_write1ByteRegister(uint8_t address, uint8_t reg, uint8_t data);
@@ -67,7 +75,9 @@ void I2C1_write1ByteRegister(uint8_t address, uint8_t reg, uint8_t data);
 // The I2C1_writeNBytes function executes all the steps to write N bytes to the client:
 uint8_t I2C1_writeNBytes(uint8_t address, uint8_t reg, uint8_t* data, size_t len);
 
+uint8_t I2C1_read1ByteRegister(uint8_t address, uint8_t reg);
 
+uint16_t I2C1_read2ByteRegister(uint8_t address, uint8_t reg);
 
 
 #endif	/* API_I2C_H */

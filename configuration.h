@@ -11,6 +11,7 @@
 #define	CONFIGURATION_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
+#include <stdio.h>
 
 // #define _XTAL_FREQ 8000000UL
 
