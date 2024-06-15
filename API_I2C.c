@@ -30,21 +30,21 @@ void I2C_Init_Master(unsigned char sp_i2c)
 void I2C_Start(void)
 {
     SSP1CON2bits.SEN = 1;
-    while(PIR1bits.SSP1IF == 0);
+	while(!PIR1bits.SSP1IF){};
     PIR1bits.SSP1IF = 0;
 }
 
 void I2C_Stop(void)
 {
     SSP1CON2bits.PEN = 1;
-    while(PIR1bits.SSP1IF == 0);
+	while(!PIR1bits.SSP1IF){};
     PIR1bits.SSP1IF = 0;
 }
 
 void I2C_Restart(void)
 {
     SSP1CON2bits.RSEN = 1;
-    while(PIR1bits.SSP1IF == 0);
+	while(!PIR1bits.SSP1IF){};
     PIR1bits.SSP1IF = 0;
 }
 
@@ -52,7 +52,7 @@ void I2C_Ack(void)
 {
     SSP1CON2bits.ACKDT = 0;
 	SSP1CON2bits.ACKEN = 1;
-	while(PIR1bits.SSP1IF == 0);
+	while(!PIR1bits.SSP1IF){};
     PIR1bits.SSP1IF = 0;
 }
 
@@ -61,14 +61,14 @@ void I2C_Nack(void)
     SSP1CON2bits.ACKDT = 1;
 	SSP1CON2bits.ACKEN = 1;
     
-	while(PIR1bits.SSP1IF == 0);
+	while(!PIR1bits.SSP1IF){};
     PIR1bits.SSP1IF = 0;
 }
 
 short I2C_Write(char data)
 {
     SSP1BUF = data;
-    while(PIR1bits.SSP1IF == 0);
+	while(!PIR1bits.SSP1IF){};
     PIR1bits.SSP1IF = 0;
     short b_ok = SSP1CON2bits.ACKSTAT;
     return b_ok;
@@ -77,7 +77,7 @@ short I2C_Write(char data)
 unsigned char I2C_Read(void)
 {
     SSP1CON2bits.RCEN = 1;
-    while(PIR1bits.SSP1IF == 0);
+	while(!PIR1bits.SSP1IF){};
     PIR1bits.SSP1IF = 0;
     return SSP1BUF;
 }

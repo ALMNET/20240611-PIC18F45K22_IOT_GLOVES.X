@@ -58,6 +58,12 @@
 
 char buffer[128];
 
+typedef enum
+{
+    RELEASED,
+    PRESSED
+} buttonStatus_t;
+
 void delay_ms(unsigned long delay_value);
 
 
@@ -65,47 +71,94 @@ int main(void)
 {
     SYSTEM_Initialize();
     
-//    uint32_t millis = timer0_Absolute_Value_Get();
-
-    // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts 
-    // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global and Peripheral Interrupts 
-    // Use the following macros to: 
-
-    // Enable the Global High Interrupts 
-    //INTERRUPT_GlobalInterruptHighEnable(); 
-
-    // Disable the Global High Interrupts 
-    //INTERRUPT_GlobalInterruptHighDisable(); 
-
-    // Enable the Global Low Interrupts 
-    //INTERRUPT_GlobalInterruptLowEnable(); 
-
-    // Disable the Global Low Interrupts 
-    //INTERRUPT_GlobalInterruptLowDisable(); 
-
-    // Enable the Peripheral Interrupts 
-    //INTERRUPT_PeripheralInterruptEnable(); 
-
-    // Disable the Peripheral Interrupts 
-    //INTERRUPT_PeripheralInterruptDisable(); 
+    BUTTON_DOWN_SetDigitalMode();
+    BUTTON_UP_SetDigitalMode();
     
+    BUTTON_DOWN_SetDigitalInput();
+    BUTTON_UP_SetDigitalInput();
+    
+//    BUTTON_DOWN_SetPullup();
+//    BUTTON_UP_SetPullup();
+   
     I2C_Init_Master(I2C_100KHZ);
     OLED_Init();
     
-    uint16_t tempValue;
+    uint16_t setTemperature = 25;
+    uint16_t currentTemperature;
     
-    printf("ADC Value: %d\n", tempValue = ADC_GetConversion(TEMP_SENSOR));
+    buttonStatus_t buttonDownState = RELEASED;
+    buttonStatus_t buttonUpState = RELEASED;
     
     OLED_SetFont(FONT_1);
-    sprintf(buffer, "VALUE: %d", tempValue);
-    OLED_Write_Text(16, 30, buffer);
-    OLED_Update();
-    delay_ms(1500);
-    while(1);
     
-    
-    
-    while(1);
+    do{
+        
+        currentTemperature = (uint16_t)(ADC_GetConversion(TEMP_SENSOR) * 150 / 308);
+        
+        printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
+
+
+//        OLED_Write_Text(16, 10, "Set Temp:");
+//        
+//        sprintf(buffer, "%d C", setTemperature);
+//        OLED_Write_Text(16, 20, buffer);
+//        
+//        sprintf(buffer, "Current Temp:");
+//        OLED_Write_Text(16, 40, buffer);
+//        
+//        sprintf(buffer, "%d C", currentTemperature);
+//        OLED_Write_Text(16, 50, buffer);
+//        
+//        OLED_Update();
+        
+        //////////////////////////// TEMP DOWN INPUT ///////////////////////////
+        
+        if(BUTTON_DOWN_GetValue())
+        {
+            if(buttonDownState == RELEASED)
+            {
+                setTemperature--;
+                buttonDownState = PRESSED;
+            }
+            
+        }
+        else
+        {
+            buttonDownState = RELEASED;
+        }
+        
+        ///////////////////////////// TEMP UP INPUT ////////////////////////////
+                
+        if(BUTTON_UP_GetValue())
+        {
+            if(buttonUpState == RELEASED)
+            {
+                setTemperature++;
+                buttonUpState = PRESSED;
+            }
+            
+        }
+        else
+        {
+            buttonUpState = RELEASED;
+        }
+        
+        delay_ms(100);
+        
+        
+        ///////////////////////////// HEATER CONTROL ///////////////////////////
+        
+        // Soon will be improved using pwm and control technics
+        if(currentTemperature < setTemperature)
+        {
+            HEATER_SetHigh();
+        }
+        else
+        {
+            HEATER_SetLow();
+        }
+        
+    }while(1);
     
     
     printf("ADC Value: %d\n", ADC_GetConversion(TEMP_SENSOR));

@@ -41,8 +41,6 @@
 static void (*TMR2_OverflowCallback)(void);
 static void TMR2_DefaultOverflowCallback(void);
 
-static uint32_t timer2AbsoluteValue = 0;
-
 /**
   Section: TMR2 APIs
 */
@@ -50,8 +48,8 @@ static uint32_t timer2AbsoluteValue = 0;
 void TMR2_Initialize(void){
 
     // Set TMR2 to the options selected in the User Interface
-    // PR 30.250000000000004; 
-    PR2 = 0x1E;
+    // PR 61.50000000000001; 
+    PR2 = 0x3D;
     // TMR 0x0; 
     TMR2 = 0x0;
 
@@ -98,9 +96,6 @@ void TMR2_PeriodCountSet(size_t periodVal)
 
 void TMR2_ISR(void)
 {
-    
-    LATCbits.LATC2 = ~LATCbits.LATC2;
-    
     // clear the TMR2 interrupt flag
      PIR1bits.TMR2IF = 0;
 
@@ -114,13 +109,7 @@ void TMR2_OverflowCallbackRegister(void (* InterruptHandler)(void)){
 }
 
 static void TMR2_DefaultOverflowCallback(void){
-    
-    timer2AbsoluteValue++;
     // add your TMR2 interrupt custom code
     // or set custom function using TMR2_OverflowCallbackRegister()
 }
 
-uint32_t timer2_Absolute_Value_Get()
-{
-    return timer2AbsoluteValue;
-}

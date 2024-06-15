@@ -69,6 +69,46 @@
 #define TEMP_SENSOR_SetAnalogMode()      do { ANSELAbits.ANSA0 = 1; } while(0)
 #define TEMP_SENSOR_SetDigitalMode()     do { ANSELAbits.ANSA0 = 0; } while(0)
 
+// get/set RB1 aliases
+#define BUTTON_UP_TRIS                 TRISBbits.TRISB1
+#define BUTTON_UP_LAT                  LATBbits.LATB1
+#define BUTTON_UP_PORT                 PORTBbits.RB1
+#define BUTTON_UP_WPU                  WPUBbits.WPUB1
+#define BUTTON_UP_OD                   ODCONBbits.
+#define BUTTON_UP_ANS                  ANSELBbits.ANSB1
+#define BUTTON_UP_SetHigh()            do { LATBbits.LATB1 = 1; } while(0)
+#define BUTTON_UP_SetLow()             do { LATBbits.LATB1 = 0; } while(0)
+#define BUTTON_UP_Toggle()             do { LATBbits.LATB1 = ~LATBbits.LATB1; } while(0)
+#define BUTTON_UP_GetValue()           PORTBbits.RB1
+#define BUTTON_UP_SetDigitalInput()    do { TRISBbits.TRISB1 = 1; } while(0)
+#define BUTTON_UP_SetDigitalOutput()   do { TRISBbits.TRISB1 = 0; } while(0)
+#define BUTTON_UP_SetPullup()          do { WPUBbits.WPUB1 = 1; } while(0)
+#define BUTTON_UP_ResetPullup()        do { WPUBbits.WPUB1 = 0; } while(0)
+#define BUTTON_UP_SetPushPull()        do { ODCONBbits. = 0; } while(0)
+#define BUTTON_UP_SetOpenDrain()       do { ODCONBbits. = 1; } while(0)
+#define BUTTON_UP_SetAnalogMode()      do { ANSELBbits.ANSB1 = 1; } while(0)
+#define BUTTON_UP_SetDigitalMode()     do { ANSELBbits.ANSB1 = 0; } while(0)
+
+// get/set RB2 aliases
+#define BUTTON_DOWN_TRIS                 TRISBbits.TRISB2
+#define BUTTON_DOWN_LAT                  LATBbits.LATB2
+#define BUTTON_DOWN_PORT                 PORTBbits.RB2
+#define BUTTON_DOWN_WPU                  WPUBbits.WPUB2
+#define BUTTON_DOWN_OD                   ODCONBbits.
+#define BUTTON_DOWN_ANS                  ANSELBbits.ANSB2
+#define BUTTON_DOWN_SetHigh()            do { LATBbits.LATB2 = 1; } while(0)
+#define BUTTON_DOWN_SetLow()             do { LATBbits.LATB2 = 0; } while(0)
+#define BUTTON_DOWN_Toggle()             do { LATBbits.LATB2 = ~LATBbits.LATB2; } while(0)
+#define BUTTON_DOWN_GetValue()           PORTBbits.RB2
+#define BUTTON_DOWN_SetDigitalInput()    do { TRISBbits.TRISB2 = 1; } while(0)
+#define BUTTON_DOWN_SetDigitalOutput()   do { TRISBbits.TRISB2 = 0; } while(0)
+#define BUTTON_DOWN_SetPullup()          do { WPUBbits.WPUB2 = 1; } while(0)
+#define BUTTON_DOWN_ResetPullup()        do { WPUBbits.WPUB2 = 0; } while(0)
+#define BUTTON_DOWN_SetPushPull()        do { ODCONBbits. = 0; } while(0)
+#define BUTTON_DOWN_SetOpenDrain()       do { ODCONBbits. = 1; } while(0)
+#define BUTTON_DOWN_SetAnalogMode()      do { ANSELBbits.ANSB2 = 1; } while(0)
+#define BUTTON_DOWN_SetDigitalMode()     do { ANSELBbits.ANSB2 = 0; } while(0)
+
 // get/set RC0 aliases
 #define LED_SYSTEM_TRIS                 TRISCbits.TRISC0
 #define LED_SYSTEM_LAT                  LATCbits.LATC0
@@ -188,6 +228,26 @@
 #define UART_RX_SetOpenDrain()       do { ODCONCbits. = 1; } while(0)
 #define UART_RX_SetAnalogMode()      do { ANSELCbits.ANSC7 = 1; } while(0)
 #define UART_RX_SetDigitalMode()     do { ANSELCbits.ANSC7 = 0; } while(0)
+
+// get/set RE1 aliases
+#define HEATER_TRIS                 TRISEbits.TRISE1
+#define HEATER_LAT                  LATEbits.LATE1
+#define HEATER_PORT                 PORTEbits.RE1
+#define HEATER_WPU                  WPUEbits.
+#define HEATER_OD                   ODCONEbits.
+#define HEATER_ANS                  ANSELEbits.ANSE1
+#define HEATER_SetHigh()            do { LATEbits.LATE1 = 1; } while(0)
+#define HEATER_SetLow()             do { LATEbits.LATE1 = 0; } while(0)
+#define HEATER_Toggle()             do { LATEbits.LATE1 = ~LATEbits.LATE1; } while(0)
+#define HEATER_GetValue()           PORTEbits.RE1
+#define HEATER_SetDigitalInput()    do { TRISEbits.TRISE1 = 1; } while(0)
+#define HEATER_SetDigitalOutput()   do { TRISEbits.TRISE1 = 0; } while(0)
+#define HEATER_SetPullup()          do { WPUEbits. = 1; } while(0)
+#define HEATER_ResetPullup()        do { WPUEbits. = 0; } while(0)
+#define HEATER_SetPushPull()        do { ODCONEbits. = 0; } while(0)
+#define HEATER_SetOpenDrain()       do { ODCONEbits. = 1; } while(0)
+#define HEATER_SetAnalogMode()      do { ANSELEbits.ANSE1 = 1; } while(0)
+#define HEATER_SetDigitalMode()     do { ANSELEbits.ANSE1 = 0; } while(0)
 
 /**
  * @ingroup  pinsdriver
