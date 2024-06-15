@@ -1,35 +1,4 @@
- /*
- * MAIN Generated Driver File
- * 
- * @file main.c
- * 
- * @defgroup main MAIN
- * 
- * @brief This is the generated driver implementation file for the MAIN driver.
- *
- * @version MAIN Driver Version 1.0.0
-*/
 
-/*
-© [2024] Microchip Technology Inc. and its subsidiaries.
-
-    Subject to your compliance with these terms, you may use Microchip 
-    software and any derivatives exclusively with Microchip products. 
-    You are responsible for complying with 3rd party license terms  
-    applicable to your use of 3rd party software (including open source  
-    software) that may accompany Microchip software. SOFTWARE IS ?AS IS.? 
-    NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS 
-    SOFTWARE, INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,  
-    MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT 
-    WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-    INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY 
-    KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF 
-    MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE 
-    FORESEEABLE. TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP?S 
-    TOTAL LIABILITY ON ALL CLAIMS RELATED TO THE SOFTWARE WILL NOT 
-    EXCEED AMOUNT OF FEES, IF ANY, YOU PAID DIRECTLY TO MICROCHIP FOR 
-    THIS SOFTWARE.
-*/
 #include "mcc_generated_files/system/system.h"
 
 #include "configuration.h"
@@ -37,20 +6,31 @@
 #include "API_I2C.h"
 #include "API_OLED_SSD1306.h"
 
-/*
-    Main application
-*/
 
+////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// VARIABLES //////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// Buffer for OLED Messages
 char buffer[128];
 
+// Button status state machine
 typedef enum
 {
     RELEASED,
     PRESSED
 } buttonStatus_t;
 
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// LOCAL PROTOTYPES //////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+// Simple delay function prototype
 void delay_ms(unsigned long delay_value);
 
+////////////////////////////////////////////////////////////////////////////////
+///////////////////////////// MAIN FUNCTION ////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 int main(void)
 {
@@ -83,50 +63,50 @@ int main(void)
         printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
 
 
-        OLED_Write_Text(16, 10, "Set Temp:");
-        
-        sprintf(buffer, "%d C", setTemperature);
-        OLED_Write_Text(16, 20, buffer);
-        
-        sprintf(buffer, "Current Temp:");
-        OLED_Write_Text(16, 40, buffer);
-        
-        sprintf(buffer, "%d C", currentTemperature);
-        OLED_Write_Text(16, 50, buffer);
-        
-        OLED_Update();
+//        OLED_Write_Text(16, 10, "Set Temp:");
+//        
+//        sprintf(buffer, "%d C", setTemperature);
+//        OLED_Write_Text(16, 20, buffer);
+//        
+//        sprintf(buffer, "Current Temp:");
+//        OLED_Write_Text(16, 40, buffer);
+//        
+//        sprintf(buffer, "%d C", currentTemperature);
+//        OLED_Write_Text(16, 50, buffer);
+//        
+//        OLED_Update();
         
         //////////////////////////// TEMP DOWN INPUT ///////////////////////////
         
         if(BUTTON_DOWN_GetValue())
         {
-//            if(buttonDownState == RELEASED)
-//            {
+            if(buttonDownState == RELEASED)
+            {
                 setTemperature--;
-//                buttonDownState = PRESSED;
-//            }
+                buttonDownState = PRESSED;
+            }
             
         }
-//        else
-//        {
-//            buttonDownState = RELEASED;
-//        }
+        else
+        {
+            buttonDownState = RELEASED;
+        }
         
         ///////////////////////////// TEMP UP INPUT ////////////////////////////
                 
         if(BUTTON_UP_GetValue())
         {
-//            if(buttonUpState == RELEASED)
-//            {
+            if(buttonUpState == RELEASED)
+            {
                 setTemperature++;
-//                buttonUpState = PRESSED;
-//            }
+                buttonUpState = PRESSED;
+            }
             
         }
-//        else
-//        {
-//            buttonUpState = RELEASED;
-//        }
+        else
+        {
+            buttonUpState = RELEASED;
+        }
         
         
         ///////////////////////////// HEATER CONTROL ///////////////////////////

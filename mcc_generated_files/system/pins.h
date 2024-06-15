@@ -69,45 +69,45 @@
 #define TEMP_SENSOR_SetAnalogMode()      do { ANSELAbits.ANSA0 = 1; } while(0)
 #define TEMP_SENSOR_SetDigitalMode()     do { ANSELAbits.ANSA0 = 0; } while(0)
 
-// get/set RB1 aliases
-#define BUTTON_UP_TRIS                 TRISBbits.TRISB1
-#define BUTTON_UP_LAT                  LATBbits.LATB1
-#define BUTTON_UP_PORT                 PORTBbits.RB1
-#define BUTTON_UP_WPU                  WPUBbits.WPUB1
+// get/set RB4 aliases
+#define BUTTON_UP_TRIS                 TRISBbits.TRISB4
+#define BUTTON_UP_LAT                  LATBbits.LATB4
+#define BUTTON_UP_PORT                 PORTBbits.RB4
+#define BUTTON_UP_WPU                  WPUBbits.WPUB4
 #define BUTTON_UP_OD                   ODCONBbits.
-#define BUTTON_UP_ANS                  ANSELBbits.ANSB1
-#define BUTTON_UP_SetHigh()            do { LATBbits.LATB1 = 1; } while(0)
-#define BUTTON_UP_SetLow()             do { LATBbits.LATB1 = 0; } while(0)
-#define BUTTON_UP_Toggle()             do { LATBbits.LATB1 = ~LATBbits.LATB1; } while(0)
-#define BUTTON_UP_GetValue()           PORTBbits.RB1
-#define BUTTON_UP_SetDigitalInput()    do { TRISBbits.TRISB1 = 1; } while(0)
-#define BUTTON_UP_SetDigitalOutput()   do { TRISBbits.TRISB1 = 0; } while(0)
-#define BUTTON_UP_SetPullup()          do { WPUBbits.WPUB1 = 1; } while(0)
-#define BUTTON_UP_ResetPullup()        do { WPUBbits.WPUB1 = 0; } while(0)
+#define BUTTON_UP_ANS                  ANSELBbits.ANSB4
+#define BUTTON_UP_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
+#define BUTTON_UP_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
+#define BUTTON_UP_Toggle()             do { LATBbits.LATB4 = ~LATBbits.LATB4; } while(0)
+#define BUTTON_UP_GetValue()           PORTBbits.RB4
+#define BUTTON_UP_SetDigitalInput()    do { TRISBbits.TRISB4 = 1; } while(0)
+#define BUTTON_UP_SetDigitalOutput()   do { TRISBbits.TRISB4 = 0; } while(0)
+#define BUTTON_UP_SetPullup()          do { WPUBbits.WPUB4 = 1; } while(0)
+#define BUTTON_UP_ResetPullup()        do { WPUBbits.WPUB4 = 0; } while(0)
 #define BUTTON_UP_SetPushPull()        do { ODCONBbits. = 0; } while(0)
 #define BUTTON_UP_SetOpenDrain()       do { ODCONBbits. = 1; } while(0)
-#define BUTTON_UP_SetAnalogMode()      do { ANSELBbits.ANSB1 = 1; } while(0)
-#define BUTTON_UP_SetDigitalMode()     do { ANSELBbits.ANSB1 = 0; } while(0)
+#define BUTTON_UP_SetAnalogMode()      do { ANSELBbits.ANSB4 = 1; } while(0)
+#define BUTTON_UP_SetDigitalMode()     do { ANSELBbits.ANSB4 = 0; } while(0)
 
-// get/set RB2 aliases
-#define BUTTON_DOWN_TRIS                 TRISBbits.TRISB2
-#define BUTTON_DOWN_LAT                  LATBbits.LATB2
-#define BUTTON_DOWN_PORT                 PORTBbits.RB2
-#define BUTTON_DOWN_WPU                  WPUBbits.WPUB2
+// get/set RB5 aliases
+#define BUTTON_DOWN_TRIS                 TRISBbits.TRISB5
+#define BUTTON_DOWN_LAT                  LATBbits.LATB5
+#define BUTTON_DOWN_PORT                 PORTBbits.RB5
+#define BUTTON_DOWN_WPU                  WPUBbits.WPUB5
 #define BUTTON_DOWN_OD                   ODCONBbits.
-#define BUTTON_DOWN_ANS                  ANSELBbits.ANSB2
-#define BUTTON_DOWN_SetHigh()            do { LATBbits.LATB2 = 1; } while(0)
-#define BUTTON_DOWN_SetLow()             do { LATBbits.LATB2 = 0; } while(0)
-#define BUTTON_DOWN_Toggle()             do { LATBbits.LATB2 = ~LATBbits.LATB2; } while(0)
-#define BUTTON_DOWN_GetValue()           PORTBbits.RB2
-#define BUTTON_DOWN_SetDigitalInput()    do { TRISBbits.TRISB2 = 1; } while(0)
-#define BUTTON_DOWN_SetDigitalOutput()   do { TRISBbits.TRISB2 = 0; } while(0)
-#define BUTTON_DOWN_SetPullup()          do { WPUBbits.WPUB2 = 1; } while(0)
-#define BUTTON_DOWN_ResetPullup()        do { WPUBbits.WPUB2 = 0; } while(0)
+#define BUTTON_DOWN_ANS                  ANSELBbits.ANSB5
+#define BUTTON_DOWN_SetHigh()            do { LATBbits.LATB5 = 1; } while(0)
+#define BUTTON_DOWN_SetLow()             do { LATBbits.LATB5 = 0; } while(0)
+#define BUTTON_DOWN_Toggle()             do { LATBbits.LATB5 = ~LATBbits.LATB5; } while(0)
+#define BUTTON_DOWN_GetValue()           PORTBbits.RB5
+#define BUTTON_DOWN_SetDigitalInput()    do { TRISBbits.TRISB5 = 1; } while(0)
+#define BUTTON_DOWN_SetDigitalOutput()   do { TRISBbits.TRISB5 = 0; } while(0)
+#define BUTTON_DOWN_SetPullup()          do { WPUBbits.WPUB5 = 1; } while(0)
+#define BUTTON_DOWN_ResetPullup()        do { WPUBbits.WPUB5 = 0; } while(0)
 #define BUTTON_DOWN_SetPushPull()        do { ODCONBbits. = 0; } while(0)
 #define BUTTON_DOWN_SetOpenDrain()       do { ODCONBbits. = 1; } while(0)
-#define BUTTON_DOWN_SetAnalogMode()      do { ANSELBbits.ANSB2 = 1; } while(0)
-#define BUTTON_DOWN_SetDigitalMode()     do { ANSELBbits.ANSB2 = 0; } while(0)
+#define BUTTON_DOWN_SetAnalogMode()      do { ANSELBbits.ANSB5 = 1; } while(0)
+#define BUTTON_DOWN_SetDigitalMode()     do { ANSELBbits.ANSB5 = 0; } while(0)
 
 // get/set RC0 aliases
 #define LED_SYSTEM_TRIS                 TRISCbits.TRISC0
