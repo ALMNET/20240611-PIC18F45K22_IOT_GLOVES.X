@@ -37,21 +37,6 @@
 #include "API_I2C.h"
 #include "API_OLED_SSD1306.h"
 
-
-
-
-#define I2C_SLAVE_ADDR                  0x20
-#define MCP23008_REG_ADDR_IODIR         0x00
-#define MCP23008_REG_ADDR_GPIO          0x09
-
-#ifndef I2C_RW_BIT
-#define I2C_RW_BIT                      0x01
-#endif
-
-#define PINS_DIGITAL_OUTPUT             0x00
-#define PINS_DIGITAL_LOW                0x00
-#define PINS_DIGITAL_HIGH               0xFF
-
 /*
     Main application
 */
@@ -76,9 +61,6 @@ int main(void)
     
     BUTTON_DOWN_SetDigitalInput();
     BUTTON_UP_SetDigitalInput();
-    
-//    BUTTON_DOWN_SetPullup();
-//    BUTTON_UP_SetPullup();
    
     I2C_Init_Master(I2C_100KHZ);
     OLED_Init();
@@ -91,59 +73,60 @@ int main(void)
     
     OLED_SetFont(FONT_1);
     
-    do{
-        
+    while(1)
+    {
+        // Get temperature and calculate to convert from ADC value to 
+        // degrees celsius
         currentTemperature = (uint16_t)(ADC_GetConversion(TEMP_SENSOR) * 150 / 308);
         
+        // Console Message
         printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
 
 
-//        OLED_Write_Text(16, 10, "Set Temp:");
-//        
-//        sprintf(buffer, "%d C", setTemperature);
-//        OLED_Write_Text(16, 20, buffer);
-//        
-//        sprintf(buffer, "Current Temp:");
-//        OLED_Write_Text(16, 40, buffer);
-//        
-//        sprintf(buffer, "%d C", currentTemperature);
-//        OLED_Write_Text(16, 50, buffer);
-//        
-//        OLED_Update();
+        OLED_Write_Text(16, 10, "Set Temp:");
+        
+        sprintf(buffer, "%d C", setTemperature);
+        OLED_Write_Text(16, 20, buffer);
+        
+        sprintf(buffer, "Current Temp:");
+        OLED_Write_Text(16, 40, buffer);
+        
+        sprintf(buffer, "%d C", currentTemperature);
+        OLED_Write_Text(16, 50, buffer);
+        
+        OLED_Update();
         
         //////////////////////////// TEMP DOWN INPUT ///////////////////////////
         
         if(BUTTON_DOWN_GetValue())
         {
-            if(buttonDownState == RELEASED)
-            {
+//            if(buttonDownState == RELEASED)
+//            {
                 setTemperature--;
-                buttonDownState = PRESSED;
-            }
+//                buttonDownState = PRESSED;
+//            }
             
         }
-        else
-        {
-            buttonDownState = RELEASED;
-        }
+//        else
+//        {
+//            buttonDownState = RELEASED;
+//        }
         
         ///////////////////////////// TEMP UP INPUT ////////////////////////////
                 
         if(BUTTON_UP_GetValue())
         {
-            if(buttonUpState == RELEASED)
-            {
+//            if(buttonUpState == RELEASED)
+//            {
                 setTemperature++;
-                buttonUpState = PRESSED;
-            }
+//                buttonUpState = PRESSED;
+//            }
             
         }
-        else
-        {
-            buttonUpState = RELEASED;
-        }
-        
-        delay_ms(100);
+//        else
+//        {
+//            buttonUpState = RELEASED;
+//        }
         
         
         ///////////////////////////// HEATER CONTROL ///////////////////////////
@@ -158,16 +141,12 @@ int main(void)
             HEATER_SetLow();
         }
         
-    }while(1);
-    
-    
-    printf("ADC Value: %d\n", ADC_GetConversion(TEMP_SENSOR));
-    
+        // EUSART1_Write('a');
         
-    while (1)
-    {
+        delay_ms(100);
         
-	}  
+    };
+    
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -178,5 +157,3 @@ int main(void)
 void delay_ms(unsigned long delay_value){
     for(unsigned long x=0; x < delay_value; x++) __delay_ms(1);
 }
-
-

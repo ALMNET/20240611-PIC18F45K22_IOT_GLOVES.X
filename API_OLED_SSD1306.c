@@ -698,8 +698,8 @@ void OLED_Circle(int16_t x0, int16_t y0, int16_t r, uint8_t color)
 void OLED_Write( int16_t x, int16_t y, char value )
 {
     uint16_t font_idx = 0;
-    uint16_t rowcnt = 0;
-    uint16_t cnt = 0;
+    int16_t rowcnt = 0;
+    int16_t cnt = 0;
     uint8_t b;
     uint16_t temp = 0;
     int16_t cbyte, cx, cy;
@@ -718,16 +718,16 @@ void OLED_Write( int16_t x, int16_t y, char value )
                     if(temp & (1<<b))
                     {
                         if(cfont.inverted == false)
-                            OLED_DrawPixel(x+cnt, y+(rowcnt*8)+b, true);
+                            OLED_DrawPixel((int16_t)(x + cnt), (int16_t)(y + (rowcnt * 8) + b), (int8_t)(true));
                         else
-                            OLED_DrawPixel(x+cnt, y+(rowcnt*8)+b, false);
+                            OLED_DrawPixel((int16_t)(x + cnt), (int16_t)(y + (rowcnt * 8)) + b, (int8_t)(false));
                     }
                     else
                     {
                         if(cfont.inverted == false )
-                            OLED_DrawPixel(x+cnt, y+(rowcnt*8)+b, false);
+                            OLED_DrawPixel((int16_t)(x + cnt), (int16_t)(y + (rowcnt * 8) + b), (int8_t)(false));
                         else
-                            OLED_DrawPixel(x+cnt, y+(rowcnt*8)+b, true);
+                            OLED_DrawPixel((int16_t)(x + cnt), (int16_t)(y + (rowcnt * 8) + b), (int8_t)(true));
                     }
                 }
             }
@@ -772,7 +772,7 @@ void OLED_Write_Text( int16_t x, int16_t y, char *text)
 {
     uint8_t cnt;
     uint8_t length;
-    length = strlen((const char*)text);
+    length = (uint8_t) (strlen((const char*)text));
     if(x == RIGHT)
         x = 128-(length*cfont.x_size);
     if(x == CENTER)
