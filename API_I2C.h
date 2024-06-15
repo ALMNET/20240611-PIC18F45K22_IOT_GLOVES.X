@@ -61,7 +61,7 @@ static void I2C1_sendNotAcknowledge(void);
 
 // The I2C1_setReceiveMode function sets the receive enable bit in SSP1CON2, which starts the clock signal so
 // that the client can transmit data:
-static void I2C1_setReceiveMode(void);
+void I2C1_setReceiveMode(void);
 
 
 // The I2C1_readData function loads the value from the SSP1BUF into and variable and waits for the SSP1IF flag to

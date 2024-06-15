@@ -35,6 +35,8 @@
 #include "configuration.h"
 
 #include "API_I2C.h"
+#include "API_OLED_SSD1306.h"
+#include "API_OLED_SSD1306_FONTS.h"
 
 
 
@@ -66,6 +68,7 @@ void I2C_MCP23008_Output_Test();
 int main(void)
 {
     SYSTEM_Initialize();
+    I2C1_Initialize_Bare_Metal();
     
 //    uint32_t millis = timer0_Absolute_Value_Get();
 
@@ -91,7 +94,21 @@ int main(void)
     // Disable the Peripheral Interrupts 
     //INTERRUPT_PeripheralInterruptDisable(); 
     
-    I2C1_Initialize_Bare_Metal();
+    // I2C_MCP23017_Output_Test();
+    
+    SSD1306_Init();
+    
+    SSD1306_GotoXY (0,0);
+	SSD1306_Puts ("MENU", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY (0, 20);
+	SSD1306_Puts ("(1) CONGRESO", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY (0, 40);
+	SSD1306_Puts ("(2) HARTONG", &Font_7x10, SSD1306_COLOR_WHITE);
+	SSD1306_GotoXY (0, 60);
+	SSD1306_Puts ("(1) CONGRESO", &Font_7x10, SSD1306_COLOR_WHITE);
+    
+    while(1);
+    
     
     I2C_MCP23017_Output_Test();
 
