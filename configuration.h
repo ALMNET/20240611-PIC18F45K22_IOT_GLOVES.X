@@ -13,7 +13,9 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdio.h>
 
-// #define _XTAL_FREQ 8000000UL
+#ifndef _XTAL_FREQ
+#define _XTAL_FREQ 8000000
+#endif
 
 //////////////////////// I2C PCA9536 DEVICE CONSTANTS  /////////////////////////
 
