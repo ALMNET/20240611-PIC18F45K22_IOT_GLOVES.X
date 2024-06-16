@@ -1,7 +1,15 @@
 
-#include "mcc_generated_files/system/system.h"
 
 #include "configuration.h"
+
+#ifdef _18F45K22
+#include "mcc_generated_files/system/system.h"
+#else
+#include <htc.h>
+#include "API_ADC_PIC18F4550.h"
+#include "API_UART_PIC18F4550.h"
+#endif
+
 
 #include "API_I2C.h"
 #include "API_OLED_SSD1306.h"
@@ -34,13 +42,27 @@ void delay_ms(unsigned long delay_value);
 
 int main(void)
 {
+    
+#ifdef _18F45K22
     SYSTEM_Initialize();
     
     BUTTON_DOWN_SetDigitalMode();
     BUTTON_UP_SetDigitalMode();
     
+#else
+    UART_Init(9600);
+    ADC_Init();
+    
+#endif
+    
+
+    
     BUTTON_DOWN_SetDigitalInput();
     BUTTON_UP_SetDigitalInput();
+    
+    HEATER_SetDigitalOutput();
+    
+
    
     I2C_Init_Master(I2C_100KHZ);
     OLED_Init();
@@ -57,24 +79,27 @@ int main(void)
     {
         // Get temperature and calculate to convert from ADC value to 
         // degrees celsius
+#ifdef _18F45K22    
         currentTemperature = (uint16_t)(ADC_GetConversion(TEMP_SENSOR) * 150 / 308);
-        
+#else   
+        currentTemperature = (uint16_t)(ADC_Read(0) * 150 / 308);
+#endif  
         // Console Message
         printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
 
 
-//        OLED_Write_Text(16, 10, "Set Temp:");
-//        
-//        sprintf(buffer, "%d C", setTemperature);
-//        OLED_Write_Text(16, 20, buffer);
-//        
-//        sprintf(buffer, "Current Temp:");
-//        OLED_Write_Text(16, 40, buffer);
-//        
-//        sprintf(buffer, "%d C", currentTemperature);
-//        OLED_Write_Text(16, 50, buffer);
-//        
-//        OLED_Update();
+        OLED_Write_Text(16, 10, "Set Temp:");
+        
+        sprintf(buffer, "%d C", setTemperature);
+        OLED_Write_Text(16, 20, buffer);
+        
+        sprintf(buffer, "Current Temp:");
+        OLED_Write_Text(16, 40, buffer);
+        
+        sprintf(buffer, "%d C", currentTemperature);
+        OLED_Write_Text(16, 50, buffer);
+        
+        OLED_Update();
         
         //////////////////////////// TEMP DOWN INPUT ///////////////////////////
         
@@ -121,7 +146,9 @@ int main(void)
             HEATER_SetLow();
         }
         
-        // EUSART1_Write('a');
+        // EUSART1_Write('a');.
+        
+        //UART_Write_Text("HOLA");
         
         delay_ms(100);
         

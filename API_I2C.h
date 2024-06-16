@@ -21,14 +21,20 @@
 
 #define I2C_MASTER_MODE
 
+#ifdef _18F45K22
 #define TRIS_SCL    TRISCbits.TRISC3
 #define TRIS_SDA    TRISCbits.TRISC4
+#elif _18F4550
+#define TRIS_SCL    TRISBbits.TRISB1
+#define TRIS_SDA    TRISBbits.TRISB0
+#endif
 
 #define I2C_100KHZ 0x80
 #define I2C_400KHZ 0x00
 
 #define I2C_MASTER_MODE
 //#define I2C_SLAVE_MODE
+
 
 #ifdef I2C_MASTER_MODE
 void I2C_Init_Master(unsigned char sp_i2c);

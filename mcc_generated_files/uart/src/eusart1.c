@@ -101,10 +101,10 @@ void EUSART1_Initialize(void)
     RCSTA1 = 0x90; 
     //TX9D 0x0; BRGH hi_speed; SENDB sync_break_complete; SYNC asynchronous; TXEN enabled; TX9 8-bit; CSRC client_mode; 
     TXSTA1 = 0x26; 
-    //SPBRG1 160; 
-    SPBRG1 = 0xA0; 
-    //SPBRGH1 1; 
-    SPBRGH1 = 0x1; 
+    //SPBRG1 207; 
+    SPBRG1 = 0xCF; 
+    //SPBRGH1 0; 
+    SPBRGH1 = 0x0; 
 
     EUSART1_FramingErrorCallbackRegister(EUSART1_DefaultFramingErrorCallback);
     EUSART1_OverrunErrorCallbackRegister(EUSART1_DefaultOverrunErrorCallback);

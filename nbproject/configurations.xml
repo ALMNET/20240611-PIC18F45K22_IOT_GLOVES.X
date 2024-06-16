@@ -38,6 +38,8 @@
       <itemPath>configuration.h</itemPath>
       <itemPath>API_I2C.h</itemPath>
       <itemPath>API_OLED_SSD1306.h</itemPath>
+      <itemPath>API_ADC_PIC18F4550.h</itemPath>
+      <itemPath>API_UART_PIC18F4550.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -93,6 +95,8 @@
       <itemPath>main.c</itemPath>
       <itemPath>API_I2C.c</itemPath>
       <itemPath>API_OLED_SSD1306.c</itemPath>
+      <itemPath>API_ADC_PIC18F4550.c</itemPath>
+      <itemPath>API_UART_PIC18F4550.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -141,6 +145,14 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <item path="API_ADC_PIC18F4550.c" ex="true" overriding="false">
+      </item>
+      <item path="API_ADC_PIC18F4550.h" ex="true" overriding="false">
+      </item>
+      <item path="API_UART_PIC18F4550.c" ex="true" overriding="false">
+      </item>
+      <item path="API_UART_PIC18F4550.h" ex="true" overriding="false">
+      </item>
       <HI-TECH-COMP>
         <property key="additional-warnings" value="true"/>
         <property key="asmlist" value="true"/>
@@ -245,19 +257,19 @@
         <property key="wpo-lto" value="false"/>
       </XC8-config-global>
     </conf>
-    <conf name="PIC18F46K80" type="2">
+    <conf name="PIC18F4550" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
-        <targetDevice>PIC18F46K80</targetDevice>
+        <targetDevice>PIC18F4550</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PICkit3PlatformTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC8</languageToolchain>
         <languageToolchainVersion>2.46</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC18F-K_DFP" vendor="Microchip" version="1.13.292"/>
+        <pack name="PIC18Fxxxx_DFP" vendor="Microchip" version="1.6.159"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -270,7 +282,7 @@
         </archiverTool>
         <loading>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
-          <parseOnProdLoad>false</parseOnProdLoad>
+          <parseOnProdLoad>true</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
         <subordinates>
@@ -374,9 +386,14 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="lastid" value=""/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -417,9 +434,15 @@
         <property key="ToolFirmwareFilePath"
                   value="Press to browse for a specific firmware version"/>
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="lastid" value=""/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -475,6 +498,82 @@
         <property key="user-pack-device-support" value=""/>
         <property key="wpo-lto" value="false"/>
       </XC8-config-global>
+      <item path="mcc_generated_files/adc/adc.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/adc/src/adc.c" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/capture/ccp5.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/capture/src/ccp5.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/i2c_host/i2c_host_event_types.h"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/i2c_host/i2c_host_interface.h"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/i2c_host/i2c_host_types.h"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/i2c_host/mssp1.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/i2c_host/src/mssp1.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/clock.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/config_bits.h"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/interrupt.h"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/pins.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/src/clock.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/src/config_bits.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/src/interrupt.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/src/pins.c" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/src/system.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/system/system.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/timer/src/tmr2.c" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/timer/tmr2.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/uart/eusart1.h" ex="true" overriding="false">
+      </item>
+      <item path="mcc_generated_files/uart/src/eusart1.c"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/uart/uart_drv_interface.h"
+            ex="true"
+            overriding="false">
+      </item>
+      <item path="mcc_generated_files/uart/uart_types.h" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

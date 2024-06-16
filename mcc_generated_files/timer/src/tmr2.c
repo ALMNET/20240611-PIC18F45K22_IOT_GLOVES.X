@@ -48,8 +48,8 @@ static void TMR2_DefaultOverflowCallback(void);
 void TMR2_Initialize(void){
 
     // Set TMR2 to the options selected in the User Interface
-    // PR 61.50000000000001; 
-    PR2 = 0x3D;
+    // PR 30.250000000000004; 
+    PR2 = 0x1E;
     // TMR 0x0; 
     TMR2 = 0x0;
 

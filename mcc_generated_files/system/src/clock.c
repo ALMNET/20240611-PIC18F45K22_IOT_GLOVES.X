@@ -39,7 +39,7 @@
 void CLOCK_Initialize(void)
 {
     OSCCON = (2 << _OSCCON_SCS_POSN)   // SCS INTOSC
-        | (7 << _OSCCON_IRCF_POSN)   // IRCF 16MHz_HFINTOSC
+        | (6 << _OSCCON_IRCF_POSN)   // IRCF 8MHz_HFINTOSC/2
         | (0 << _OSCCON_IDLEN_POSN);  // IDLEN disabled
     OSCCON2 = (1 << _OSCCON2_PRISD_POSN)   // PRISD enabled
         | (0 << _OSCCON2_SOSCGO_POSN)   // SOSCGO disabled
