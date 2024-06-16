@@ -14,11 +14,12 @@
 
 #include <stdio.h>
 
-void UART_Init(unsigned long baud_rate);
-void UART_Write(char data);
-char UART_Read();
-
-void UART_Write_Text(char *text);
+void UART_Init();
+void UART_init_baud(const long int baudRate);
+char UART_Read(void);
+void UART_Write(char dato);
+void UART_printf(unsigned char *cadena);
+void putch(char dato);
 
 
 #endif	/* API_UART_PIC18F4550_H */

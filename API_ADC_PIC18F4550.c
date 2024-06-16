@@ -48,6 +48,6 @@ uint16_t ADC_Read(unsigned char channel)
     while(ADCON0bits.GO_DONE);
     
     // Return the result (10-bit ADC result)
-    return ((ADRESH << 8) + ADRESL);
+    return (uint16_t)((ADRESH << 8) + ADRESL);
 }
 

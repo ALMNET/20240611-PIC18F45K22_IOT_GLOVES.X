@@ -18,9 +18,8 @@
 #endif
 
 
-#ifdef _18F45K22
-#else
-// PIC18F4550 Configuration Bit Settings
+#ifdef _18F4550
+// PIC18F2550 Configuration Bit Settings
 
 // 'C' source line config statements
 
@@ -30,12 +29,12 @@
 #pragma config USBDIV = 1       // USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1) (USB clock source comes directly from the primary oscillator block with no postscale)
 
 // CONFIG1H
-#pragma config FOSC = INTOSC_HS // Oscillator Selection bits (Internal oscillator, HS oscillator used by USB (INTHS))
+#pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator (HS))
 #pragma config FCMEN = OFF      // Fail-Safe Clock Monitor Enable bit (Fail-Safe Clock Monitor disabled)
 #pragma config IESO = OFF       // Internal/External Oscillator Switchover bit (Oscillator Switchover mode disabled)
 
 // CONFIG2L
-#pragma config PWRT = OFF       // Power-up Timer Enable bit (PWRT disabled)
+#pragma config PWRT = ON        // Power-up Timer Enable bit (PWRT enabled)
 #pragma config BOR = OFF        // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
 #pragma config BORV = 3         // Brown-out Reset Voltage bits (Minimum setting 2.05V)
 #pragma config VREGEN = OFF     // USB Voltage Regulator Enable bit (USB voltage regulator disabled)
@@ -46,14 +45,13 @@
 
 // CONFIG3H
 #pragma config CCP2MX = ON      // CCP2 MUX bit (CCP2 input/output is multiplexed with RC1)
-#pragma config PBADEN = OFF     // PORTB A/D Enable bit (PORTB<4:0> pins are configured as digital I/O on Reset)
+#pragma config PBADEN = ON      // PORTB A/D Enable bit (PORTB<4:0> pins are configured as analog input channels on Reset)
 #pragma config LPT1OSC = OFF    // Low-Power Timer 1 Oscillator Enable bit (Timer1 configured for higher power operation)
 #pragma config MCLRE = ON       // MCLR Pin Enable bit (MCLR pin enabled; RE3 input pin disabled)
 
 // CONFIG4L
 #pragma config STVREN = ON      // Stack Full/Underflow Reset Enable bit (Stack full/underflow will cause Reset)
-#pragma config LVP = ON         // Single-Supply ICSP Enable bit (Single-Supply ICSP enabled)
-#pragma config ICPRT = OFF      // Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit (ICPORT disabled)
+#pragma config LVP = OFF        // Single-Supply ICSP Enable bit (Single-Supply ICSP disabled)
 #pragma config XINST = OFF      // Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
 
 // CONFIG5L
@@ -89,20 +87,7 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-#endif
-
-#ifdef _18F45K22
-#else
-
 ////////////////////////////////////////////
-
-#define TXCHECK			0x00    // Return 0x0F to indicate the communications is working
-#define INSTRUCT_READ_TEMP		0x01    // Read ADC Channel 1 and return ADCH
-
-#define INSTRUCT_SET_HEATER		0x0A    // Write the received integer to OCR1C, return 0x0B
-
-#define START_INSTRUCTION	0x53
-#define STOP_INSTRUCTION	0xAA
 
 // get/set RB4 aliases
 #define BUTTON_UP_TRIS                 TRISBbits.TRISB4
@@ -158,6 +143,14 @@
 #define HEATER_SetOpenDrain()       do { ODCONEbits. = 1; } while(0)
 
 #endif
+
+#define TXCHECK			0x00    // Return 0x0F to indicate the communications is working
+#define INSTRUCT_READ_TEMP		0x01    // Read ADC Channel 1 and return ADCH
+
+#define INSTRUCT_SET_HEATER		0x0A    // Write the received integer to OCR1C, return 0x0B
+
+#define START_INSTRUCTION	0x53
+#define STOP_INSTRUCTION	0xAA
 
 #endif	/* CONFIGURATION_H */
 

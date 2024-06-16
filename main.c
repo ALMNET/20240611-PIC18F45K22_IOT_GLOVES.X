@@ -50,7 +50,7 @@ int main(void)
     BUTTON_UP_SetDigitalMode();
     
 #else
-    UART_Init(9600);
+    UART_init_baud(9600);
     ADC_Init();
     
 #endif
@@ -62,10 +62,12 @@ int main(void)
     
     HEATER_SetDigitalOutput();
     
+    printf("suscribete al canal");
+    
 
    
-    I2C_Init_Master(I2C_100KHZ);
-    OLED_Init();
+//    I2C_Init_Master(I2C_100KHZ);
+//    OLED_Init();
     
     uint16_t setTemperature = 25;
     uint16_t currentTemperature;
@@ -73,7 +75,7 @@ int main(void)
     buttonStatus_t buttonDownState = RELEASED;
     buttonStatus_t buttonUpState = RELEASED;
     
-    OLED_SetFont(FONT_1);
+//    OLED_SetFont(FONT_1);
     
     while(1)
     {
@@ -88,16 +90,16 @@ int main(void)
         printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
 
 
-        OLED_Write_Text(16, 10, "Set Temp:");
-        
-        sprintf(buffer, "%d C", setTemperature);
-        OLED_Write_Text(16, 20, buffer);
-        
-        sprintf(buffer, "Current Temp:");
-        OLED_Write_Text(16, 40, buffer);
-        
-        sprintf(buffer, "%d C", currentTemperature);
-        OLED_Write_Text(16, 50, buffer);
+//        OLED_Write_Text(16, 10, "Set Temp:");
+//        
+//        sprintf(buffer, "%d C", setTemperature);
+//        OLED_Write_Text(16, 20, buffer);
+//        
+//        sprintf(buffer, "Current Temp:");
+//        OLED_Write_Text(16, 40, buffer);
+//        
+//        sprintf(buffer, "%d C", currentTemperature);
+//        OLED_Write_Text(16, 50, buffer);
         
         OLED_Update();
         
