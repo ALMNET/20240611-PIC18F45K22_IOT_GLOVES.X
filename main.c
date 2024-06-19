@@ -90,8 +90,9 @@ int main(void)
         currentTemperature = (uint16_t)(ADC_Read(0) * 150 / 308);
 #endif  
         // Console Message
-        printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
-
+        //printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
+        
+        UART_Write((uint8_t)(0xFF & currentTemperature));
 
         OLED_Write_Text(16, 10, "Set Temp:");
         
