@@ -69,6 +69,26 @@
 #define TEMP_SENSOR_SetAnalogMode()      do { ANSELAbits.ANSA0 = 1; } while(0)
 #define TEMP_SENSOR_SetDigitalMode()     do { ANSELAbits.ANSA0 = 0; } while(0)
 
+// get/set RB3 aliases
+#define REMOTE_LOCAL_SELECT_TRIS                 TRISBbits.TRISB3
+#define REMOTE_LOCAL_SELECT_LAT                  LATBbits.LATB3
+#define REMOTE_LOCAL_SELECT_PORT                 PORTBbits.RB3
+#define REMOTE_LOCAL_SELECT_WPU                  WPUBbits.WPUB3
+#define REMOTE_LOCAL_SELECT_OD                   ODCONBbits.
+#define REMOTE_LOCAL_SELECT_ANS                  ANSELBbits.ANSB3
+#define REMOTE_LOCAL_SELECT_SetHigh()            do { LATBbits.LATB3 = 1; } while(0)
+#define REMOTE_LOCAL_SELECT_SetLow()             do { LATBbits.LATB3 = 0; } while(0)
+#define REMOTE_LOCAL_SELECT_Toggle()             do { LATBbits.LATB3 = ~LATBbits.LATB3; } while(0)
+#define REMOTE_LOCAL_SELECT_GetValue()           PORTBbits.RB3
+#define REMOTE_LOCAL_SELECT_SetDigitalInput()    do { TRISBbits.TRISB3 = 1; } while(0)
+#define REMOTE_LOCAL_SELECT_SetDigitalOutput()   do { TRISBbits.TRISB3 = 0; } while(0)
+#define REMOTE_LOCAL_SELECT_SetPullup()          do { WPUBbits.WPUB3 = 1; } while(0)
+#define REMOTE_LOCAL_SELECT_ResetPullup()        do { WPUBbits.WPUB3 = 0; } while(0)
+#define REMOTE_LOCAL_SELECT_SetPushPull()        do { ODCONBbits. = 0; } while(0)
+#define REMOTE_LOCAL_SELECT_SetOpenDrain()       do { ODCONBbits. = 1; } while(0)
+#define REMOTE_LOCAL_SELECT_SetAnalogMode()      do { ANSELBbits.ANSB3 = 1; } while(0)
+#define REMOTE_LOCAL_SELECT_SetDigitalMode()     do { ANSELBbits.ANSB3 = 0; } while(0)
+
 // get/set RB4 aliases
 #define BUTTON_UP_TRIS                 TRISBbits.TRISB4
 #define BUTTON_UP_LAT                  LATBbits.LATB4

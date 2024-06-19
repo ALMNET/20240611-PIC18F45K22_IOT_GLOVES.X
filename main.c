@@ -64,6 +64,8 @@ int main(void)
     BUTTON_DOWN_SetDigitalInput();
     BUTTON_UP_SetDigitalInput();
     
+    REMOTE_LOCAL_SELECT_SetDigitalInput();
+    
     HEATER_SetDigitalOutput();    
 
    
@@ -105,8 +107,12 @@ int main(void)
         OLED_Update();
         
         ////////////////////////////////////////////////////////////////////////
-        
-        if((receivedData = UART_Read()))
+        // check if UART received data and if selector is in remote mode
+#ifdef _18F45K22
+        if((receivedData = EUSART1_Read()) && REMOTE_LOCAL_SELECT_GetValue())
+#else
+        if((receivedData = UART_Read()) && REMOTE_LOCAL_SELECT_GetValue())
+#endif
         {
             switch(receivedData)
             {
