@@ -22,6 +22,12 @@
 // Buffer for OLED Messages
 char buffer[128];
 
+// received data byte from uart
+char receivedData;
+
+
+
+
 // Button status state machine
 typedef enum
 {
@@ -55,19 +61,14 @@ int main(void)
     
 #endif
     
-
-    
     BUTTON_DOWN_SetDigitalInput();
     BUTTON_UP_SetDigitalInput();
     
-    HEATER_SetDigitalOutput();
-    
-    printf("suscribete al canal");
-    
+    HEATER_SetDigitalOutput();    
 
    
-//    I2C_Init_Master(I2C_100KHZ);
-//    OLED_Init();
+    I2C_Init_Master(I2C_100KHZ);
+    OLED_Init();
     
     uint16_t setTemperature = 25;
     uint16_t currentTemperature;
@@ -75,7 +76,7 @@ int main(void)
     buttonStatus_t buttonDownState = RELEASED;
     buttonStatus_t buttonUpState = RELEASED;
     
-//    OLED_SetFont(FONT_1);
+    OLED_SetFont(FONT_1);
     
     while(1)
     {
@@ -90,18 +91,35 @@ int main(void)
         printf("Current Temp: %u, Set Temp: %u\n", currentTemperature, setTemperature);
 
 
-//        OLED_Write_Text(16, 10, "Set Temp:");
-//        
-//        sprintf(buffer, "%d C", setTemperature);
-//        OLED_Write_Text(16, 20, buffer);
-//        
-//        sprintf(buffer, "Current Temp:");
-//        OLED_Write_Text(16, 40, buffer);
-//        
-//        sprintf(buffer, "%d C", currentTemperature);
-//        OLED_Write_Text(16, 50, buffer);
+        OLED_Write_Text(16, 10, "Set Temp:");
+        
+        sprintf(buffer, "%d C  ", setTemperature);
+        OLED_Write_Text(16, 20, buffer);
+        
+        sprintf(buffer, "Current Temp:");
+        OLED_Write_Text(16, 40, buffer);
+        
+        sprintf(buffer, "%d C  ", currentTemperature);
+        OLED_Write_Text(16, 50, buffer);
         
         OLED_Update();
+        
+        ////////////////////////////////////////////////////////////////////////
+        
+        if((receivedData = UART_Read()))
+        {
+            switch(receivedData)
+            {
+                case 'A': // Activate Heater
+                    HEATER_SetHigh();
+                break;
+                    
+                case 'D':    // Deactivate heater
+                    HEATER_SetLow();
+                break;
+            }
+        }
+            
         
         //////////////////////////// TEMP DOWN INPUT ///////////////////////////
         

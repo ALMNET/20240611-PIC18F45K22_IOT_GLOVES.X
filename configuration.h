@@ -11,10 +11,11 @@
 #define	CONFIGURATION_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-#include <stdio.h>
+#include <stdio.h>      // Allows to use printf functions
+#include <stdbool.h>    // Allows to use boolean variables
 
 #ifndef _XTAL_FREQ
-#define _XTAL_FREQ 8000000
+#define _XTAL_FREQ 20000000
 #endif
 
 
@@ -34,7 +35,7 @@
 #pragma config IESO = OFF       // Internal/External Oscillator Switchover bit (Oscillator Switchover mode disabled)
 
 // CONFIG2L
-#pragma config PWRT = ON        // Power-up Timer Enable bit (PWRT enabled)
+#pragma config PWRT = OFF        // Power-up Timer Enable bit (PWRT enabled)
 #pragma config BOR = OFF        // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
 #pragma config BORV = 3         // Brown-out Reset Voltage bits (Minimum setting 2.05V)
 #pragma config VREGEN = OFF     // USB Voltage Regulator Enable bit (USB voltage regulator disabled)
